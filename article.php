@@ -1,24 +1,15 @@
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="style.css" rel="stylesheet">
-    <title>Document</title>
-</head>
-
-<body>
-    <div id="app">
+<?php include 'menu.php';?>
+<div class="col py-3">
+    <div id="app2">
         <div class="container">
  
             <div class="row">
                 <div class="col-lg-12">
                      <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title ">Tableau des clients</h5>
-                            <button type="button" class="btn btn-primary float-right" @click="showAddModal=true" >Ajouter un plat</button>
+                            <h5 class="card-title ">Tableau d'articles</h5>
+                            <button type="button" class="btn btn-primary float-right" @click="showAddModal=true" ><i class="fs bi-plus"></i> Ajouter un plat</button>
                             <div class="alert alert-danger" v-if="errorMsg">
                             Erreur
                             </div> 
@@ -29,9 +20,9 @@
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">NOM</th>
-                                    <th scope="col">E-MAIL</th>
-                                    <th scope="col">TELEPHONE</th>
+                                    <th scope="col">LIBELLE</th>
+                                    <th scope="col">PRIX_DE_VENTE</th>
+                                    <th scope="col">PRIX_D'ACHAT</th>
                                     <th scope="col">CATEGORIE</th>
                                     <th scope="col">ACTION</th>
                                   </tr>
@@ -39,13 +30,13 @@
                                 <tbody>
                                     <tr>
                                       <th scope="row">1</th>
-                                      <td>Richard Ibrahim</td>
-                                      <td>riib@gmail.com</td>
-                                      <td>758986213</td>
-                                      <td>Gold</td>
+                                      <td>Monblanc Explorer EDP 100ml</td>
+                                      <td>99 €</td>
+                                      <td>119 €</td>
+                                      <td>parfum</td>
                                       <td>
-                                          <button class="btn btn-primary"  @click="showAddModal=true">modifier</button>
-                                          <button class="btn btn-danger"@click="showDeleteModal=true">supprimer</button>
+                                          <button class="btn btn-primary"  @click="showAddModal=true"><i class="fs bi-pencil"></i></button>
+                                          <button class="btn btn-danger"@click="showDeleteModal=true"><i class="fs bi-trash"></i></button>
                                       </td>
                                     </tr>
                                 </tbody>
@@ -61,29 +52,33 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Ajouter un Client</h5>
+              <h5 class="modal-title">Ajouter un article</h5>
               <button type="button" class="btn-close"  aria-label="Close" @click="showAddModal=false"></button>
             </div>
             <div class="modal-body">
               <form action="#" method="post">
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Nom:</label>
+                  <label for="recipient-name" class="col-form-label">Libelle:</label>
                   <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">E-mail:</label>
-                  <input type="text" class="form-control">
+                  <label for="message-text" class="col-form-label">Prix de vente:</label>
+                  <input type="number" class="form-control">
 
                 </div>
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Téléphone:</label>
-                  <input type="text" class="form-control"></input>
+                  <label for="recipient-name" class="col-form-label">Prix s'achat:</label>
+                  <input type="number" class="form-control"></input>
                 </div>
 
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">Categorie:</label>
-                  <input type="text" class="form-control" id="recipient-name">
-
+                  <select class="form-select" aria-label="Default select example">
+                        <option selected>choisir la categorie</option>
+                        <option value="1">Parfum</option>
+                        <option value="2">creme</option>
+                        <option value="3">outils</option>
+                    </select>
                 </div>
        
               </form>
@@ -101,35 +96,38 @@
         <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Modifier Client</h5>
-              <button type="button" class="btn-close"  aria-label="Close" @click="showEditModal=false"></button>
+            <button type="button" class="btn-close"  aria-label="Close" @click="showAddModal=false"></button>
             </div>
             <div class="modal-body">
               <form action="#" method="post">
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Nom:</label>
+                  <label for="recipient-name" class="col-form-label">Libelle:</label>
                   <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">E-mail:</label>
-                  <input type="text" class="form-control">
+                  <label for="message-text" class="col-form-label">Prix de vente:</label>
+                  <input type="number" class="form-control">
 
                 </div>
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Téléphone:</label>
-                  <input type="text" class="form-control"></input>
+                  <label for="recipient-name" class="col-form-label">Prix s'achat:</label>
+                  <input type="number" class="form-control"></input>
                 </div>
 
                 <div class="mb-3">
                   <label for="message-text" class="col-form-label">Categorie:</label>
-                  <input type="text" class="form-control" id="recipient-name">
-
+                  <select class="form-select" aria-label="Default select example">
+                        <option selected>choisir la categorie</option>
+                        <option value="1">Parfum</option>
+                        <option value="2">creme</option>
+                        <option value="3">outils</option>
+                    </select>
                 </div>
        
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="showEditModal=false">Fermer</button>
+              <button type="button" class="btn btn-secondary" @click="showAddModal=false">Fermer</button>
               <button type="button" class="btn btn-primary">Ajouter</button>
             </div>
           </div>
@@ -142,11 +140,11 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Supprimer client</h5>
+              <h5 class="modal-title">Supprimer article</h5>
               <button type="button" class="btn-close" aria-label="Close" @click="showDeleteModal=false"></button>
             </div>
             <div class="modal-body">
-              <p>Voulez vous vraiment supprimer ce client?</p>
+              <p>Voulez vous vraiment supprimer cet article?</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success" @click="showDeleteModal=false">Annuler</button>
@@ -160,13 +158,7 @@
    </div>
     </div>
             
+</div>
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-    <script type="text/javascript" src="main.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-</body>
-
-</html>
+<?php include 'footer.php';?>
