@@ -9,7 +9,7 @@
                      <div class="card">
                         <div class="card-body">
                             <h5 class="card-title ">Tableau des clients</h5>
-                            <button type="button" class="btn btn-primary float-right" @click="showAddModal=true" ><i class="fs bi-plus"></i> Ajouter un plat</button>
+                            <button type="button" class="btn btn-primary float-right" @click="showAddModal=true" ><i class="fs bi-plus"></i> Ajouter un client</button>
                             <div class="alert alert-danger" v-if="errorMsg">
                             Erreur
                             </div> 
@@ -35,9 +35,11 @@
                                       <td>758986213</td>
                                       <td>Gold</td>
                                       <td>
-                                          <button class="btn btn-primary"  @click="showAddModal=true"><i class="fs bi-pencil"></i></button>
+                                         <button class="btn btn-primary"  @click="showAddModal=true"><i class="fs bi-pencil"></i></button>
                                           <button class="btn btn-danger"@click="showDeleteModal=true"><i class="fs bi-trash"></i></button>
-                                      </td>
+                                          <button class="btn btn-success"  @click="showAddModal=true"><i class="fs bi-card-list"></i></button>
+                                       
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -58,23 +60,40 @@
             <div class="modal-body">
               <form action="#" method="post">
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Nom:</label>
+                  <label class="col-form-label">Nom:</label>
                   <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">E-mail:</label>
+                  <label  class="col-form-label">E-mail:</label>
                   <input type="text" class="form-control">
 
                 </div>
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Téléphone:</label>
+                  <label  class="col-form-label">Téléphone:</label>
                   <input type="text" class="form-control"></input>
                 </div>
 
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">FACEBOOK:</label>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <label  class="col-form-label">FACEBOOK:</label>
+                  <input type="text" class="form-control">
 
+                </div>
+                <div class=" mb-3">
+                  <label  class="col-form-label">Adresse:</label><br>
+                  
+                  <div class="input-group mb-3">
+                    <label  class="col-form-label">N°:</label>
+                    <input type="text" class="form-control form-sm">
+
+                    <label  class="col-form-label">Rue:</label>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="input-group mb-3">
+                    <label  class="col-form-label">Code postal:</label>
+                    <input type="text" class="form-control">
+                    <label  class="col-form-label">Ville:</label>
+                    <input type="text" class="form-control">
+                  </div>
                 </div>
        
               </form>
@@ -98,25 +117,42 @@
             <div class="modal-body">
               <form action="#" method="post">
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Nom:</label>
+                  <label  class="col-form-label">Nom:</label>
                   <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">E-mail:</label>
+                  <label  class="col-form-label">E-mail:</label>
                   <input type="text" class="form-control">
 
                 </div>
                 <div class="mb-3">
-                  <label for="recipient-name" class="col-form-label">Téléphone:</label>
+                  <label  class="col-form-label">Téléphone:</label>
                   <input type="text" class="form-control"></input>
                 </div>
 
                 <div class="mb-3">
-                  <label for="message-text" class="col-form-label">FACEBOOK:</label>
-                  <input type="text" class="form-control" id="recipient-name">
+                  <label class="col-form-label">FACEBOOK:</label>
+                  <input type="text" class="form-control">
 
                 </div>
-       
+                
+                <div class=" mb-3">
+                  <label  class="col-form-label">Adresse:</label><br>
+                  
+                  <div class="input-group mb-3">
+                    <label  class="col-form-label">N°:</label>
+                    <input type="text" class="form-control form-sm">
+
+                    <label  class="col-form-label">Rue:</label>
+                    <input type="text" class="form-control">
+                  </div>
+                  <div class="input-group mb-3">
+                    <label  class="col-form-label">Code postal:</label>
+                    <input type="text" class="form-control">
+                    <label  class="col-form-label">Ville:</label>
+                    <input type="text" class="form-control">
+                  </div>
+                </div>
               </form>
             </div>
             <div class="modal-footer">
