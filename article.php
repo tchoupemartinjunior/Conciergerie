@@ -1,8 +1,8 @@
 
 <?php include 'menu.php';?>
-<div class="col py-3">
+<div class="col-md-auto py-3">
     <div id="app2">
-        <div class="container">
+        <div class="container-fluid">
  
             <div class="row">
                 <div class="col-lg-12">
@@ -16,7 +16,7 @@
                             <div class="alert alert-success" v-if="successMsg">
                                 {{successMsg}}
                             </div>
-                            <table class="table datatable">
+                            <table class="table table-lg">
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>

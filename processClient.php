@@ -22,7 +22,8 @@ if(isset($_GET['action'])){
 
 /***********lecture des clients */
 if($action=='read'){
-    $sql = $conn->query("SELECT idClient, CONCAT(prenomClient, ' ',nomClient) as nom,codeClient, adresse, facebook, instagram, email, telephone, points,nomMember from client join membership on points BETWEEN minPoints and maxPoints;"); // ?????sql query
+    $sql = $conn->query("SELECT idClient, nomClient, prenomClient, CONCAT(prenomClient, ' ',nomClient) as nom,codeClient, adresse, facebook, instagram, email, telephone, points,nomMember from client join membership on points BETWEEN minPoints and maxPoints;"); // ?????sql query
+
     $clients = array();
     while($row = $sql->fetch_assoc()){
         array_push($clients,$row);
@@ -32,19 +33,36 @@ if($action=='read'){
 
 //echo json_encode($result);
 
-if($action=='create'){ // clients
-     $nom = $_POST['nomClient'];
-     $prenom = $_POST['prenomClient'];
+// insertion d'un clients
+if($action=='create'){ 
+
+    $nom = $_POST['nomClient'];
+    $prenom = $_POST['prenomClient'];
+
     $telephone = $_POST['telephone'];
     $email = $_POST['email'];
     $facebook = $_POST['facebook'];
     $instagram = $_POST['instagram'];
     $adresse = $_POST['adresse'];
-   
+
     
     $ajouterclients= $conn->query("INSERT INTO client (nomClient, prenomClient, email, telephone, facebook, adresse)
     VALUES('$nom', '$prenom', '$email','$telephone','$facebook','$adresse')");  // *important de preciser l'ordre. clientstock (libelle, telephone, email, category)
-   
+    
+  /*********GENERATION DU CODE CLIENT */
+    $id = $conn->query("SELECT idClient FROM client WHERE nomClient='$nom'");
+    $row = $id->fetch_array(MYSQLI_NUM);
+ 
+    echo $row[0];
+
+    $DateAndTime = substr(date('Y'),-2);
+    $stringId = "SPR";
+    $codeClient= $DateAndTime."-".$stringId."-".$row[0];
+    echo "CODECLIENT :".$codeClient;
+
+    $ajouterCodeCient = $conn->query("UPDATE client SET codeClient='$codeClient'WHERE idClient='$row[0]'");
+/**********************FIN GENERATION CODE CLIENT*********************************************** */
+
 
     if($ajouterclients){
         $result['message'] = "clients ajouté avec succes";
@@ -53,15 +71,18 @@ if($action=='create'){ // clients
         $result['error'] = true;
         $result['message'] = "Echec le client n'a pas été ajouté";
     }
+
+
 }
 /**************fin creation client */
 
 /***********modifier des clients */
-/*
+
 if($action=='update'){ 
-       $idclient=$_POST['idClient'];
-       $nom = $_POST['nom'];
-       $prenom = $_POST['prenom'];
+       $idClient=$_POST['idClient'];
+       $nom = $_POST['nomClient'];
+       $prenom = $_POST['prenomClient'];
+
       $telephone = $_POST['telephone'];
       $email = $_POST['email'];
       $facebook = $_POST['facebook'];
@@ -69,11 +90,10 @@ if($action=='update'){
       $adresse = $_POST['adresse'];
    
     
-   
-    = $conn->query("SELECT idClient
-     from clientstock where libelle='$libelle'");
-    $modifierclients = $conn->query("UPDATE clientstock SET
-    libelle='$libelle', telephone= '$telephone',email='$email', category='$facebook' WHERE idclients='$idclients'");
+
+    $modifierclients = $conn->query("UPDATE client SET
+    nomClient='$nom',prenomClient='$prenom', telephone= '$telephone',email='$email', facebook='$facebook', adresse='$adresse' WHERE idClient='$idClient'");
+
    
     if($modifierclients){
         $result['message'] = "clients
@@ -89,26 +109,23 @@ if($action=='update'){
 /***********FIn  modifier des clients */
 
 /***********Supprimmer des clients */
-/*
+
+
 if($action=='delete'){ // clients
-     id needed in database, sepoarate firstlibelle from lastlibelle
-    $idclients
-     = $_POST['idclients
-    '];
+   
+    $idClient= $_POST['idClient'];
    
     $supprimmerclients
-     = $conn->query("DELETE FROM clientstock WHERE idclients
-    ='$idclients
-    '"); 
+     = $conn->query("DELETE FROM client WHERE idClient='$idClient'"); 
    
 
-    if($modifierclients
-    ){
-        $result['message'] = "clients supprimé avec succes";
+    if($modifierclients ){
+        $result['message'] = "client supprimé avec succes";
     }
     else{
         $result['error'] = true;
-        $result['message'] = "Echec l'clientsn'a pas été supprimé";
+        $result['message'] = "Echec, le client'a pas été supprimé";
+
     }
 }
 /***********FIN     Supprimmer des clients */

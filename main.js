@@ -1,5 +1,6 @@
 
 /**   debut client */
+
 var url = "http://localhost/";
 
 var urlClient = "http://e-srv-lamp/s177672/bdd/Conciergerie/processClient.php?action=";
@@ -110,9 +111,11 @@ var app = new Vue({
             var fd = new FormData();
             for (var i in obj) {
                 fd.append(i, obj[i]);
+
             }
             return fd;
         },
+
 
         selectClient(client) {
             app.currentClient = client;
@@ -131,6 +134,7 @@ var app2 = new Vue({
         showEditModal: false,
         showDeleteModal: false,
         articles: [],
+
         newArticle: { libelle: "", prixVente: "", prixAchat: "", categorie: "" },
         currentArticle: {},
 
@@ -139,26 +143,29 @@ var app2 = new Vue({
         this.getAllArticle();
 
     },
-    methods: {
 
-        getAllArticle() {
-            axios.get(urlArticle + "read") //serveur de lensim
-                //axios.get("http://localhost/conciergerie/process2.php?action=read")
-                .then(function (response) {
+    methods:{
 
-                    if (response.data.error) {
-                        app2.errorMsg = response.data.message;
-                    }
-                    else {
-                        app2.articles = response.data.article;
-                        console.log(app2.articles);
-                    }
+        getAllArticle(){
+            axios.get(urlArticle+"read") //serveur de lensim
+             //axios.get("http://localhost/conciergerie/process2.php?action=read")
+            .then(function(response){
 
-                })
+                if(response.data.error){
+                    app2.errorMsg = response.data.message;
+                }
+                else{
+                    app2.articles= response.data.article;
+                    console.log(app2.articles);
+                }
+                
+                })         
+
         },
 
         addArticle() {
             let formData = app2.toFormData(app2.newArticle);
+
             axios.post(urlArticle + "create", formData)
                 //axios.post("http://localhost/conciergerie/process2.php?action=create", formData)
                 .then(function (response) {
@@ -330,6 +337,7 @@ var app3 = new Vue({
         },
 
         toFormData(obj) {
+
             var fd = new FormData();
             for (var i in obj) {
                 fd.append(i, obj[i]);
@@ -337,8 +345,11 @@ var app3 = new Vue({
             return fd;
         },
 
+
         selectCommande(commande) {
             app3.currentCommande = commande;
+
+ 
         }
     }
 

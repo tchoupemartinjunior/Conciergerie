@@ -2,10 +2,10 @@
 <?php include 'menu.php';?>
 <div class="col py-3">
     <div id="app">
-        <div class="container">
+        <div class="row">
  
             <div class="row">
-                <div class="col-lg-12">
+                <div class="col">
                      <div class="card">
                         <div class="card-body">
                             <h5 class="card-title ">Tableau des clients</h5>
@@ -117,46 +117,39 @@
               <form action="#" method="post">
                 <div class="mb-3">
                   <label  class="col-form-label">Nom:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" v-model="currentClient.nomClient">
                 </div>
                 <div class="mb-3">
+                  <label class="col-form-label">Prenom:</label>
+                  <input type="text" class="form-control" v-model="currentClient.prenomClient">
+                </div>
+
+                <div class="mb-3">
                   <label  class="col-form-label">E-mail:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" v-model="currentClient.email">
 
                 </div>
                 <div class="mb-3">
                   <label  class="col-form-label">Téléphone:</label>
-                  <input type="text" class="form-control"></input>
+                  <input type="text" class="form-control" v-model="currentClient.telephone"></input>
                 </div>
 
                 <div class="mb-3">
-                  <label class="col-form-label">FACEBOOK:</label>
-                  <input type="text" class="form-control">
+                  <label class="col-form-label">Facebook:</label>
+                  <input type="text" class="form-control" v-model="currentClient.facebook">
 
                 </div>
                 
                 <div class=" mb-3">
-                  <label  class="col-form-label">Adresse:</label><br>
-                  
-                  <div class="input-group mb-3">
-                    <label  class="col-form-label">N°:</label>
-                    <input type="text" class="form-control form-sm">
-
-                    <label  class="col-form-label">Rue:</label>
-                    <input type="text" class="form-control">
-                  </div>
-                  <div class="input-group mb-3">
-                    <label  class="col-form-label">Code postal:</label>
-                    <input type="text" class="form-control">
-                    <label  class="col-form-label">Ville:</label>
-                    <input type="text" class="form-control">
-                  </div>
+                  <label  class="col-form-label">Adresse:</label>
+                  <input type="text" name="adresse" class="form-control" v-model="currentClient.adresse">
                 </div>
+              
               </form>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" @click="showEditModal=false">Fermer</button>
-              <button type="button" class="btn btn-primary">Ajouter</button>
+              <button type="button" class="btn btn-primary" @click="showEditModal=false; updateClient();">Modifier</button>
             </div>
           </div>
         </div>
@@ -176,7 +169,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success" @click="showDeleteModal=false">Annuler</button>
-              <button type="button" class="btn btn-danger">supprimer</button>
+              <button type="button" class="btn btn-danger" @click="showDeleteModal=false; deleteClient();"  v-on:keyup.enter="showDeleteModal=false; deleteClient();">supprimer</button>
             </div>
           </div>
         
