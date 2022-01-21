@@ -1,8 +1,8 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "";
-$databaseName="conciergeriedb";
+$username = "s177672";
+$password = "Bhe237xd";
+$databaseName="s177672";
 
 
 // Create connection
@@ -50,27 +50,32 @@ if($action=='create'){ // article id needed in database, sepoarate firstlibelle 
 
 
 if($action=='update'){ // article id needed in database, sepoarate firstlibelle from lastlibelle
-    $idArticle = $_POST['id'];
+    $idArticleS=$_POST['idArticleS'];
     $libelle = $_POST['libelle'];
     $prixVente = $_POST['prixVente'];
     $prixAchat = $_POST['prixAchat'];
-    $categorie = $_POST['categorie'];
-    $modifierArticle = $conn->query("UPDATE articlestock SET
-    libelle='$libelle', prixVente= '$prixVente',prixAchat='$prixAchat', categorie='$categorie' WHERE id='$idArticle'"); 
+    $categorie = $_POST['category'];
    
-
+    
+    //$idArticleS= $conn->query("SELECT idArticleS from articlestock where libelle='$libelle'");
+    $modifierArticle = $conn->query("UPDATE articlestock SET
+    libelle='$libelle', prixVente= '$prixVente',prixAchat='$prixAchat', category='$categorie' WHERE idArticleS='$idArticleS'");
+   
     if($modifierArticle){
         $result['message'] = "Article modifié avec succes";
+        var_dump( $modifierArticle);
     }
     else{
         $result['error'] = true;
         $result['message'] = "Echec l'article n'a pas été modifié";
     }
+    
 }
+
 if($action=='delete'){ // article id needed in database, sepoarate firstlibelle from lastlibelle
-    $idArticle = $_POST['id'];
+    $idArticleS = $_POST['idArticleS'];
    
-    $supprimmerArticle = $conn->query("DELETE FROM articlestock WHERE id='$idArticle'"); 
+    $supprimmerArticle = $conn->query("DELETE FROM articlestock WHERE idArticleS='$idArticleS'"); 
    
 
     if($modifierArticle){
@@ -83,6 +88,7 @@ if($action=='delete'){ // article id needed in database, sepoarate firstlibelle 
 }
 //echo json_encode($result['article']);
 echo json_encode($result);
+
 
 
 ?>

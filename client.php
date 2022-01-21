@@ -11,35 +11,41 @@
                             <h5 class="card-title ">Tableau des clients</h5>
                             <button type="button" class="btn btn-primary float-right" @click="showAddModal=true" ><i class="fs bi-plus"></i> Ajouter un client</button>
                             <div class="alert alert-danger" v-if="errorMsg">
-                            Erreur
+                            {{errorMsg}}
                             </div> 
                             <div class="alert alert-success" v-if="successMsg">
-                                success
+                            {{successMsg}}
                             </div>
-                            <table class="table datatable">
+                            <table class="table ">
                                 <thead>
                                   <tr>
                                     <th scope="col">#</th>
+                                    <th scope="col">CODE</th>
                                     <th scope="col">NOM</th>
                                     <th scope="col">E-MAIL</th>
+                                    <th scope="col">ADRESSE</th>
                                     <th scope="col">TELEPHONE</th>
                                     <th scope="col">FACEBOOK</th>
+                                    <th scope="col">POINTS</th>
                                     <th scope="col">ACTION</th>
                                   </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Richard Ibrahim</td>
-                                      <td>riib@gmail.com</td>
-                                      <td>758986213</td>
-                                      <td>Gold</td>
+                                    <tr class="text-left" v-for ="client in clients">
+                                      <th scope="row">{{client.idClient}}</th>
+                                      <td>{{client.codeClient}}</td>
+                                      <td>{{client.nom}}</td>
+                                      <td>{{client.email}}</td>
+                                      <td>{{client.adresse}}</td>
+                                      <td>{{client.telephone}}</td>
+                                      <td>{{client.facebook}}</td>
+                                      <td>{{client.points}}</td>
                                       <td>
-                                         <button class="btn btn-primary"  @click="showAddModal=true"><i class="fs bi-pencil"></i></button>
-                                          <button class="btn btn-danger"@click="showDeleteModal=true"><i class="fs bi-trash"></i></button>
+                                          <button class="btn btn-primary"  @click="showEditModal=true; selectClient(client);"><i class="fs bi-pencil"></i></button>
+                                          <button class="btn btn-danger"@click="showDeleteModal=true;  selectClient(client);"><i class="fs bi-trash"></i></button>
                                           <button class="btn btn-success"  @click="showAddModal=true"><i class="fs bi-card-list"></i></button>
                                        
-                                        </td>
+                                      </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -61,46 +67,39 @@
               <form action="#" method="post">
                 <div class="mb-3">
                   <label class="col-form-label">Nom:</label>
-                  <input type="text" class="form-control">
+                  <input type="text" name="nomClient" class="form-control" v-model="newClient.nomClient">
                 </div>
+
+                <div class="mb-3">
+                  <label class="col-form-label">Prenom:</label>
+                  <input type="text" name="prenomClient" class="form-control" v-model="newClient.prenomClient">
+                </div>
+
                 <div class="mb-3">
                   <label  class="col-form-label">E-mail:</label>
-                  <input type="text" class="form-control">
+                  <input type="text"  name="email" class="form-control"  v-model="newClient.email">
 
                 </div>
                 <div class="mb-3">
                   <label  class="col-form-label">Téléphone:</label>
-                  <input type="text" class="form-control"></input>
+                  <input type="text" name="telephone" class="form-control"  v-model="newClient.telephone"></input>
                 </div>
 
                 <div class="mb-3">
-                  <label  class="col-form-label">FACEBOOK:</label>
-                  <input type="text" class="form-control">
-
+                  <label  class="col-form-label">facebook:</label>
+                  <input type="text" name="facebook"class="form-control"  v-model="newClient.facebook">
                 </div>
-                <div class=" mb-3">
-                  <label  class="col-form-label">Adresse:</label><br>
-                  
-                  <div class="input-group mb-3">
-                    <label  class="col-form-label">N°:</label>
-                    <input type="text" class="form-control form-sm">
 
-                    <label  class="col-form-label">Rue:</label>
-                    <input type="text" class="form-control">
-                  </div>
-                  <div class="input-group mb-3">
-                    <label  class="col-form-label">Code postal:</label>
-                    <input type="text" class="form-control">
-                    <label  class="col-form-label">Ville:</label>
-                    <input type="text" class="form-control">
-                  </div>
+                <div class=" mb-3">
+                  <label  class="col-form-label">adresse:</label><br>
+                  <input type="text" name="adresse" class="form-control"  v-model="newClient.adresse">
                 </div>
        
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" @click="showAddModal=false">Fermer</button>
-              <button type="button" class="btn btn-primary">Ajouter</button>
+            <button type="button" class="btn btn-secondary" @click="showAddModal=false">Fermer</button>
+            <button type="button" class="btn btn-primary"   @click=" addClient(); showAddModal=false;">Ajouter</button>
             </div>
           </div>
         </div>
