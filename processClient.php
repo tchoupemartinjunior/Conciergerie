@@ -38,8 +38,6 @@ if($action=='read'){
 // insertion d'un clients
 if($action=='create'){ 
 
-   
-
     $nom = $_POST['nomClient'];
     $prenom = $_POST['prenomClient'];
     $telephone = $_POST['telephone'];
@@ -51,12 +49,19 @@ if($action=='create'){
     $ajouterclients= $conn->query("INSERT INTO client (nomClient, prenomClient, email, telephone, facebook, adresse)
     VALUES('$nom', '$prenom', '$email','$telephone','$facebook','$adresse')");  // *important de preciser l'ordre. clientstock (libelle, telephone, email, category)
     
-    $id = $conn->query("SELECT idClient FROM client WHERE nomClient='$nom'"); 
-    $donnees = $sql->fetch_field();
+  /*********GENERATION DU CODE CLIENT */
+    $id = $conn->query("SELECT idClient FROM client WHERE nomClient='$nom'");
+    $row = $id->fetch_array(MYSQLI_NUM);
  
+    echo $row[0];
+
     $DateAndTime = substr(date('Y'),-2);
     $stringId = "SPR";
-    $codeClient= $DateAndTime.$stringId.$id;
+    $codeClient= $DateAndTime."-".$stringId."-".$row[0];
+    echo "CODECLIENT :".$codeClient;
+
+    $ajouterCodeCient = $conn->query("UPDATE client SET codeClient='$codeClient'WHERE idClient='$row[0]'");
+/**********************FIN GENERATION CODE CLIENT*********************************************** */
 
     if($ajouterclients){
         $result['message'] = "clients ajouté avec succes";
@@ -120,7 +125,7 @@ if($action=='delete'){ // clients
 /***********FIN     Supprimmer des clients */
 //echo json_encode($result['clients
 //]);
-//echo json_encode($result);
+echo json_encode($result);
 
 
 ?>

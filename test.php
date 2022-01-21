@@ -9,7 +9,7 @@
 $id = 1;
 $DateAndTime = substr(date('Y'),-2);
 $stringID = "SPR";
-$codeClient= $DateAndTime.$stringID.$id;
+$codeClient= $DateAndTime."-".$stringID."-".$id;
 
 echo "The current date and time are $codeClient";
 ?>

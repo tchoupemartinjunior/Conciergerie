@@ -169,7 +169,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-success" @click="showDeleteModal=false">Annuler</button>
-              <button type="button" class="btn btn-danger" @click="showDeleteModal=false; deleteClient();">supprimer</button>
+              <button type="button" class="btn btn-danger" @click="showDeleteModal=false; deleteClient();"  v-on:keyup.enter="showDeleteModal=false; deleteClient();">supprimer</button>
             </div>
           </div>
         
