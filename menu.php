@@ -29,16 +29,17 @@
                        
                     </li>
                     <li>
-                     <?php echo' <a href="article.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                  <?php echo' <a href="article.php"  class="nav-link px-0 align-middle text-white"> 
                           <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Articles</span> </a>';?>
-                        
-                  </li>
+                       <!-- <a href="article.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white">
+                          <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Articles</span> </a> -->
+                    </li>
                     <li>
-                        <a href="#" class="nav-link px-0 align-middle text-white">
+                        <a href="client.php" class="nav-link px-0 align-middle text-white">
                             <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Commandes</span></a>
                     </li>
                     <li>
-                    <?php echo' <a href="client.php" data-bs-toggle="collapse" class="nav-link px-0 align-middle text-white ">
+                    <?php echo' <a href="client.php"  class="nav-link px-0 align-middle text-white ">
                           <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Clients</span></a>';?>
                     </li>
                    

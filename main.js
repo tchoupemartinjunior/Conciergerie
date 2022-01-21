@@ -1,17 +1,119 @@
 
-
-
-var client = new Vue({
+/**   debut client */
+var urlClient= "http://e-srv-lamp/s177672/bdd/Conciergerie/processClient.php?action=";
+var urlArticle= "http://e-srv-lamp/s177672/bdd/Conciergerie/process2.php?action=";
+var app = new Vue({
     el:'#app',
     data: {
         errorMsg: "",
         successMsg: "",
         showAddModal:false,
         showEditModal:false,
-        showDeleteModal:false
-    }
-});
+        showDeleteModal:false,
+        clients: [],
+        newClient:{nomClient:"", prenomClient:"", adresse:"", facebook:"", instagram:"",email:"", telephone:"", points:"",nomMember:"" },
+        currentClient: {},
+        
+    },
+    mounted: function(){
+        this.getAllClient();
+        
+    },
+    methods:{
 
+        getAllClient(){
+            axios.get(urlClient+"read") //serveur de lensim
+             //axios.get("http://localhost/conciergerie/processClient.php?action=read")
+            .then(function(response){
+
+                if(response.data.error){
+                    app.errorMsg = response.data.message;
+                }
+                else{
+                    app.clients= response.data.client;
+                    console.log(app.clients);
+                    console.log(response.data);
+                }
+                
+                })         
+        },
+
+        addClient(){
+            let formData = app.toFormData(app.newClient);
+           axios.post(urlClient+"create",formData)
+           //axios.post("http://localhost/conciergerie/process2.php?action=create", formData)
+           .then(function(response){
+
+                app.newClient={nomClient:"", prenomClient:"", adresse:"", facebook:"", instagram:"",email:"", telephone:"", points:"",nomMember:"" };
+  
+                if(response.data.error){
+                    app.errorMsg = response.data.message;
+                    console.log(response.data);
+                }
+                else{
+                    app.successMsg = response.data.message;
+                    app.getAllClient();
+                }
+                
+                })       
+        },
+
+        updateClient(){
+            let formData = app.toFormData(app.currentClient);
+           axios.post(urlClient+"update",formData)
+   
+           .then(function(response){
+
+                app.currentClient = {};
+
+                if(response.data.error){
+                    app.errorMsg = response.data.message;
+                    
+                }
+                else{
+                    app.successMsg = response.data.message;
+                    app.getAllClient();
+                    console.log(response.data);
+                }
+                
+                })       
+        },
+
+        deleteClient(){
+            let formData = app.toFormData(app.currentClient);
+           axios.post(urlClient+"delete",formData)
+   
+           .then(function(response){
+
+                app.currentClient = {};
+
+                if(response.data.error){
+                    app.errorMsg = response.data.message;
+                }
+                else{
+                    app.successMsg = response.data.message;
+                    app.getAllClient();
+                    console.log(response.data);
+                }
+                
+                })       
+        },
+
+        toFormData(obj){
+            var fd = new FormData();
+            for(var i in obj){
+                fd.append(i,obj[i]);
+            }
+            return fd;
+        },
+
+        selectClient(client){
+            app.currentClient = client;
+        }
+    }
+    
+});
+/**   debut article */
 var app2 = new Vue({
     
     el:'#app2',
@@ -22,8 +124,9 @@ var app2 = new Vue({
         showEditModal:false,
         showDeleteModal:false,
         articles: [],
-        newArticle :{libelle:"", prixVente:"", prixAchat:"", category:""},
-        currentArticle: {}
+        newArticle :{libelle:"", prixVente:"", prixAchat:"", categorie:""},
+        currentArticle: {},
+        
     },
     mounted: function(){
         this.getAllArticle();
@@ -32,8 +135,8 @@ var app2 = new Vue({
     methods:{
 
         getAllArticle(){
-            //axios.get("http://e-srv-lamp/s177672/bdd/Conciergerie/process2.php?action=read") serveur de lensim
-             axios.get("http://localhost/conciergerie/process2.php?action=read")
+            axios.get(urlArticle+"read") //serveur de lensim
+             //axios.get("http://localhost/conciergerie/process2.php?action=read")
             .then(function(response){
 
                 if(response.data.error){
@@ -49,11 +152,11 @@ var app2 = new Vue({
 
         addArticle(){
             let formData = app2.toFormData(app2.newArticle);
-           // axios.get("http://e-srv-lamp/s177672/bdd/Conciergerie/process2.php?action=create",formData)
-           axios.post("http://localhost/conciergerie/process2.php?action=create", formData)
+           axios.post(urlArticle+"create",formData)
+           //axios.post("http://localhost/conciergerie/process2.php?action=create", formData)
            .then(function(response){
 
-                app2.newArticle = {libelle:"", prixVente:"", prixAchat:"", category:""};
+                app2.newArticle = {libelle:"", prixVente:"", prixAchat:"", categorie:""};
 
                 if(response.data.error){
                     app2.errorMsg = response.data.message;
@@ -66,6 +169,48 @@ var app2 = new Vue({
                 
                 })       
         },
+
+        updateArticle(){
+            let formData = app2.toFormData(app2.currentArticle);
+           axios.post(urlArticle+"update",formData)
+   
+           .then(function(response){
+
+                app2.currentArticle = {};
+
+                if(response.data.error){
+                    app2.errorMsg = response.data.message;
+                    
+                }
+                else{
+                    app2.successMsg = response.data.message;
+                    app2.getAllArticle();
+                    console.log(response.data);
+                }
+                
+                })       
+        },
+
+        deleteArticle(){
+            let formData = app2.toFormData(app2.currentArticle);
+           axios.post(urlArticle+"delete",formData)
+   
+           .then(function(response){
+
+                app2.currentArticle = {};
+
+                if(response.data.error){
+                    app2.errorMsg = response.data.message;
+                }
+                else{
+                    app2.successMsg = response.data.message;
+                    app2.getAllArticle();
+                    console.log(response.data);
+                }
+                
+                })       
+        },
+
         toFormData(obj){
             var fd = new FormData();
             for(var i in obj){
@@ -73,6 +218,10 @@ var app2 = new Vue({
             }
             return fd;
         },
+
+        selectArticle(article){
+            app2.currentArticle = article;
+        }
     }
     
 });
