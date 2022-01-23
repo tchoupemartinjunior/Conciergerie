@@ -1,20 +1,33 @@
 <?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+$databaseName="concierdb_final";
 
-require_once('connectdb.php');
+
+// Create connection
+$conn = new mysqli($servername, $username, $password,$databaseName);
+
+// Check connection
+if ($conn->connect_error) {
+  die("Connection failed: " . $conn->connect_error);
+}
 
 $result = array('error'=>false);
 $action = '';
-
-if(isset($_GET['action'])){
+$idComm = '';
+if(isset($_GET['action'])&&isset($_GET['idComm'])){
     $action = $_GET['action']; // get action value in url
+    $idComm = $_GET['idComm'];
 }
+
 if($action=='read'){
-    $sql = $conn->query("SELECT * FROM articlestock");
+    $sql = $conn->query("SELECT libelle,numCommande,prixUnitaire,quantite,remarque FROM article NATURAL JOIN concerne NATURAL JOIN commande  where idCommande='$idComm'");
     $articles = array();
     while($row = $sql->fetch_assoc()){
         array_push($articles,$row);
     }
-    $result['article'] = $articles; 
+    $result['listArticle'] = $articles; 
 }
 
 //echo json_encode($result);
